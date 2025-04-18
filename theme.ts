@@ -164,7 +164,7 @@ export const themeSettings = (mode: string): any => {
               light: colors.grey[100],
             },
             background: {
-              default: colors.indigo[300],
+              default: colors.indigo[700],
             },
           }
         : {
@@ -181,7 +181,7 @@ export const themeSettings = (mode: string): any => {
               light: colors.grey[100],
             },
             background: {
-              default: "#fcfcfc",
+              default: colors.indigo[900],
             },
           }),
     },

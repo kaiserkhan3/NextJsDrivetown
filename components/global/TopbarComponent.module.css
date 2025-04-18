@@ -1,0 +1,32 @@
+.hide {
+  display: none;
+  color: black;
+  background-color: #fff;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: max-content;
+  padding: 1rem 2rem;
+  width: 10%;
+  height: 10rem;
+  right: 0;
+  top: 2.8rem;
+  z-index: 100;
+  position: absolute;
+}
+.usercontainer {
+  display: flex;
+  justify-content: center;
+}
+.userIcon {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.userIcon:hover + .hide {
+  display: block;
+}
+.hide:hover {
+  display: block;
+}

@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider options={{ key: "css" }}>
-          <LayoutComponent children={children} />
+          <LayoutComponent>{children}</LayoutComponent>
         </AppRouterCacheProvider>
       </body>
     </html>

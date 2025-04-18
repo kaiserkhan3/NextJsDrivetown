@@ -1,5 +1,4 @@
 "use client";
-import Topbar from "./TopbarComponent";
 import { ColorModeContext, useMode } from "@/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
@@ -15,10 +14,7 @@ export default function LayoutComponent({
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <main className="content">
-            <Topbar />
-            {children}
-          </main>
+          <main className="content">{children}</main>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

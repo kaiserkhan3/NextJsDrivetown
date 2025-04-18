@@ -1,47 +1,64 @@
 "use client";
 import { Box, Button, TextField } from "@mui/material";
-import { error } from "console";
-import { useRouter } from "next/navigation";
+import { Fragment, useActionState } from "react";
+import { validateUser } from "@/actions/auth-actions";
 
 export default function Login() {
-  const router = useRouter();
-  const submitHandler = (formData: FormData) => {
-    const formValues = Object.fromEntries(formData);
-    let data = new FormData();
-    data.append("user_Name", formValues.userName);
-    data.append("uPassword", formValues.password);
+  // const [formState, formAction] = useActionState(validateUser, {
+  //   errors: { userName: "", password: "", message: "", success: true },
+  // });
 
-    fetch("http://apinew.drivetowininv.com/api/validateuser", {
-      body: data,
-      method: "post",
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("success");
-          router.replace("/dashboard");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+  const [formState, formAction, isPending] = useActionState(
+    validateUser,
+    undefined
+  );
   return (
-    <form action={submitHandler}>
+    <form action={formAction}>
       <Box
         display="flex"
         rowGap="20px"
         flexDirection="column"
-        sx={{ minWidth: "250px" }}
+        sx={{ minWidth: "300px" }}
       >
+        <Box>
+          {formState?.errors &&
+            Object.keys(formState?.errors).map((key) => {
+              if (key === "message") {
+                return (
+                  <Fragment key={key}>
+                    <label key={key} style={{ color: "red" }}>
+                      {formState?.errors[key]}
+                    </label>
+                  </Fragment>
+                );
+              }
+            })}
+        </Box>
         <Box>
           <TextField
             id="userName"
             label="User Name"
             variant="standard"
             name="userName"
-            sx={{ minWidth: "250px", fontSize: "2rem" }}
+            sx={{ minWidth: "300px" }}
           />
+          {formState?.errors &&
+            Object.keys(formState?.errors).map((key) => {
+              if (key === "userName") {
+                return (
+                  <span
+                    style={{
+                      display: "block",
+                      paddingTop: "5px",
+                      color: "red",
+                    }}
+                    key={key}
+                  >
+                    {formState?.errors[key]}
+                  </span>
+                );
+              }
+            })}
         </Box>
         <Box>
           <TextField
@@ -50,10 +67,32 @@ export default function Login() {
             label="Password"
             variant="standard"
             name="password"
-            sx={{ minWidth: "250px" }}
+            sx={{ minWidth: "300px" }}
           />
+          {formState?.errors &&
+            Object.keys(formState?.errors).map((key) => {
+              if (key === "password") {
+                return (
+                  <span
+                    style={{
+                      display: "block",
+                      paddingTop: "5px",
+                      color: "red",
+                    }}
+                    key={key}
+                  >
+                    {formState?.errors[key]}
+                  </span>
+                );
+              }
+            })}
         </Box>
-        <Button type="submit" variant="contained" color="success">
+        <Button
+          disabled={isPending}
+          type="submit"
+          variant="contained"
+          color="success"
+        >
           Submit
         </Button>
       </Box>
